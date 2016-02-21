@@ -17,7 +17,8 @@ DISABLE_UPDATE_PROMPT=true
 ZSH_THEME="candy"
 ZSH_CUSTOM="$HOME/.zsh-custom"
 
-plugins=(git golang composer pip neovim)
+# Enabled Plugins
+plugins=(git golang composer pip neovim virtualenvwrapper)
 
 # These should be pretty standard, we'll customize later
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
@@ -53,16 +54,8 @@ export PATH="$PATH:/opt/android-sdk/platform-tools"
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
-# PHP (composer)
-export COMPOSER_HOME="$HOME/.composer"
-export PATH="$PATH:$COMPOSER_HOME/vendor/bin"
-
 # Ruby (RubyGems)
 export PATH="$PATH:$HOME/.gem/ruby/2.2.0/bin"
-
-# Python (virtualenvwrapper)
-export WORKON_HOME="$HOME/.virtualenvs"
-[ -f /usr/bin/virtualenvwrapper.sh ] && source /usr/bin/virtualenvwrapper.sh
 
 # Javascript (node / npm)
 export NPM_PACKAGES="$HOME/.npm-packages"
