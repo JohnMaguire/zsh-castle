@@ -6,11 +6,10 @@ fi
 # }}}
 
 # oh-my-zsh configuration {{{
-# Path to your oh-my-zsh installation.
-export ZSH=/home/jmaguire/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Install oh-my-zsh if it is not already installed
-[ -d $ZSH ] || sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+[ -d "$ZSH" ] || sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Update without asking
 DISABLE_UPDATE_PROMPT=true
@@ -24,7 +23,7 @@ plugins=(git golang composer pip neovim)
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
 export MANPATH="/usr/local/man"
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 # }}}
 
 # Shell Environment Variables (EDITOR, LANG, etc.) {{{
