@@ -33,7 +33,7 @@ ZSH_CUSTOM="$HOME/.zsh-custom"
 plugins=(git golang composer pip neovim virtualenvwrapper tpm)
 
 # These should be pretty standard, we'll customize later
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 export MANPATH="/usr/local/man"
 
 source "$ZSH/oh-my-zsh.sh"
