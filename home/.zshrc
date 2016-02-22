@@ -9,7 +9,19 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 
 # Install oh-my-zsh if it is not already installed
-[ -d "$ZSH" ] || sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+if [ ! -d "$ZSH" ]; then
+	echo "oh-my-zsh is not installed -- installing it!"
+
+	command -v git > /dev/null 2>&1 || {
+		echo "Git is not installed -- can't install oh-my-zsh"
+		return 1
+	}
+
+	env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
+		echo "Failed cloning oh-my-zsh -- can't install oh-my-zsh"
+		return 1
+	}
+fi
 
 # Update without asking
 DISABLE_UPDATE_PROMPT=true
