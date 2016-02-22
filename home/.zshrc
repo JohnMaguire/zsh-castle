@@ -30,7 +30,7 @@ ZSH_THEME="candy"
 ZSH_CUSTOM="$HOME/.zsh-custom"
 
 # Enabled Plugins
-plugins=(git golang composer pip neovim virtualenvwrapper)
+plugins=(git golang composer pip neovim virtualenvwrapper tpm)
 
 # These should be pretty standard, we'll customize later
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
