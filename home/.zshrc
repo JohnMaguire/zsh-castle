@@ -79,6 +79,24 @@ export PATH="$PATH:$NPM_PACKAGES/bin"
 if [ $(uname -s) = "Darwin" ]; then
 	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 fi
+
+# ag (tag) -- Generate shell aliases for matches
+if (( $+commands[tag] )); then
+	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+	alias ag=tag
+fi
 # }}}
+
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[01;31m") \
+		LESS_TERMCAP_md=$(printf "\e[01;38;5;74m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[38;5;246m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[04;38;5;146m") \
+			man "$@"
+}
 
 # vim: foldmethod=marker:foldlevel=0
