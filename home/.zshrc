@@ -74,6 +74,11 @@ export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 export PATH="$PATH:$NPM_PACKAGES/bin"
 # export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+# Python (pip)
+if [ $(uname -s) = "Darwin" ]; then
+	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+fi
 # }}}
 
 # vim: foldmethod=marker:foldlevel=0
