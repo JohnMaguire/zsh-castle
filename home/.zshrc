@@ -55,6 +55,11 @@ if (( $+commands[tag] )); then
 	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
 	alias ag=tag
 fi
+
+# Rust
+if [ -f "$HOME/.cargo/env" ]; then
+	source "$HOME/.cargo/env"
+fi
 # }}}
 
 man() {
