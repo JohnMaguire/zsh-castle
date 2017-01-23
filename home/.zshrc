@@ -5,42 +5,12 @@ if [ -f "$HOME/.homesick/repos/homeshick/homeshick.sh" ]; then
 fi
 # }}}
 
-# oh-my-zsh configuration {{{
-export ZSH="$HOME/.oh-my-zsh"
-
-# Install oh-my-zsh if it is not already installed
-if [ ! -d "$ZSH" ]; then
-	echo "oh-my-zsh is not installed -- installing it!"
-
-	command -v git > /dev/null 2>&1 || {
-		echo "Git is not installed -- can't install oh-my-zsh"
-		return 1
-	}
-
-	env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
-		echo "Failed cloning oh-my-zsh -- can't install oh-my-zsh"
-		return 1
-	}
-fi
-
-# Update without asking
-DISABLE_UPDATE_PROMPT=true
-
-ZSH_THEME="candy"
-ZSH_CUSTOM="$HOME/.zsh-custom"
-
-# Enabled Plugins
-plugins=(git golang composer pip neovim virtualenvwrapper tpm)
+# Shell Environment Variables (EDITOR, LANG, etc.) {{{
+export LANG=en_US.UTF-8
 
 # These should be pretty standard, we'll customize later
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
-export MANPATH="/usr/local/man:/usr/local/share/man"
-
-source "$ZSH/oh-my-zsh.sh"
-# }}}
-
-# Shell Environment Variables (EDITOR, LANG, etc.) {{{
-export LANG=en_US.UTF-8
+export MANPATH="/usr/local/share/mane:/usr/share/man"
 
 # Remote editor
 if [[ -n $SSH_CONNECTION ]]; then
@@ -98,5 +68,35 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[04;38;5;146m") \
 			man "$@"
 }
+
+# oh-my-zsh configuration & bootstrapping {{{
+export ZSH="$HOME/.oh-my-zsh"
+
+# Install oh-my-zsh if it is not already installed
+if [ ! -d "$ZSH" ]; then
+	echo "oh-my-zsh is not installed -- installing it!"
+
+	command -v git > /dev/null 2>&1 || {
+		echo "Git is not installed -- can't install oh-my-zsh"
+		return 1
+	}
+
+	env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
+		echo "Failed cloning oh-my-zsh -- can't install oh-my-zsh"
+		return 1
+	}
+fi
+
+# Update without asking
+DISABLE_UPDATE_PROMPT=true
+
+ZSH_THEME="candy"
+ZSH_CUSTOM="$HOME/.zsh-custom"
+
+# Enabled Plugins
+plugins=(git golang composer pip neovim virtualenvwrapper tpm)
+
+source "$ZSH/oh-my-zsh.sh"
+# }}}
 
 # vim: foldmethod=marker:foldlevel=0
