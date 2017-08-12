@@ -63,6 +63,11 @@ if [ $(uname -s) = "Darwin" ]; then
 	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 fi
 
+# Python (virtualenvwrapper)
+if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
+	. "$HOME/.local/bin/virtualenvwrapper.sh"
+fi
+
 # ag (tag) -- Generate shell aliases for matches
 if (( $+commands[tag] )); then
 	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
