@@ -4,13 +4,13 @@ if [ -f "$HOME/.homesick/repos/homeshick/homeshick.sh" ]; then
 	fpath=("$HOME/.homesick/repos/homeshick/completions" $fpath)
 fi
 # }}}
-
+#
 # Shell Environment Variables (EDITOR, LANG, etc.) {{{
 export LANG=en_US.UTF-8
 
 # These should be pretty standard, we'll customize later
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$HOME/.local/bin"
-export MANPATH="/usr/local/share/mane:/usr/share/man"
+export MANPATH="/usr/local/share/man:/usr/share/man"
 
 # Remote editor
 if [[ -n $SSH_CONNECTION ]]; then
@@ -24,6 +24,19 @@ fi
 # System Theming {{{
 # Qt theme
 export QT_STYLE_OVERRIDE="gtk"
+
+# man (Add colors)
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[01;31m") \
+		LESS_TERMCAP_md=$(printf "\e[01;38;5;74m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[38;5;246m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[04;38;5;146m") \
+			man "$@"
+}
 # }}}
 
 # Applications {{{
@@ -43,7 +56,7 @@ export PATH="$PATH:$HOME/.gem/ruby/2.2.0/bin"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 export PATH="$PATH:$NPM_PACKAGES/bin"
-# export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # Python (pip)
 if [ $(uname -s) = "Darwin" ]; then
@@ -61,18 +74,6 @@ if [ -f "$HOME/.cargo/env" ]; then
 	source "$HOME/.cargo/env"
 fi
 # }}}
-
-man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[01;31m") \
-		LESS_TERMCAP_md=$(printf "\e[01;38;5;74m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[38;5;246m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[04;38;5;146m") \
-			man "$@"
-}
 
 # oh-my-zsh configuration & bootstrapping {{{
 export ZSH="$HOME/.oh-my-zsh"
