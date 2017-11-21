@@ -115,7 +115,12 @@ source "$HOME/.zshrc_local"
 
 # Custom aliases and functions {{{
 # Load Yubikey into ssh-agent
-alias yk4='ssh-add -s /usr/lib/libykcs11.so'
+function yk4() {
+	# remove existing Yubikey from ssh-agent if loaded
+	[ $(ssh-add -L | grep libykcs11 | wc -l) -ne 0 ] && ssh-add -e /usr/lib/libykcs11.so
+	# load Yubikey
+	ssh-add -s /usr/lib/libykcs11.so
+}
 
 # Use current path as new GOPATH, and include the bin in PATH
 function gohere () {
