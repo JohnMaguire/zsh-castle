@@ -122,13 +122,15 @@ function yk4() {
 	ssh-add -s /usr/lib/libykcs11.so
 }
 
+# Print duoconnect relay hosts and corresponding relay storage file
 function map_relaystorage() {
-	local NL=$'\n'
-	local output=""
+	# duoconnect doesn't pad its encoding properly
+	local base64_pad='{printf($0);for(i=0;(length($0)+i++)%4>0;)printf("=");printf("\n")}'
+
 	for f in ~/.duoconnect/relaystorage/*; do
-		output="${output}$(basename $f .json | base64 -d 2> /dev/null) ${f}${NL}"
-	done
-	column -t <<< $output
+		local decoded=$(basename "${f}" .json | awk "${base64_pad}" | base64 -d)
+		echo "${decoded} ${f}"
+	done | column -t
 }
 
 # Use current path as new GOPATH, and include the bin in PATH
