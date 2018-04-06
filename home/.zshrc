@@ -122,6 +122,15 @@ function yk4() {
 	ssh-add -s /usr/lib/libykcs11.so
 }
 
+function map_relaystorage() {
+	local NL=$'\n'
+	local output=""
+	for f in ~/.duoconnect/relaystorage/*; do
+		output="${output}$(basename $f .json | base64 -d 2> /dev/null) ${f}${NL}"
+	done
+	column -t <<< $output
+}
+
 # Use current path as new GOPATH, and include the bin in PATH
 function gohere () {
 	export PATH="$(pwd)/bin:$PATH"
