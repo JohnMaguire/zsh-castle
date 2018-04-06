@@ -110,7 +110,7 @@ plugins=(git golang composer pip virtualenvwrapper tpm)
 source "$ZSH/oh-my-zsh.sh"
 
 # System-specific private config
-source "$HOME/.zshrc_local"
+[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
 # }}}
 
 # Custom aliases and functions {{{
