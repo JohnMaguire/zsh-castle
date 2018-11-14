@@ -119,10 +119,27 @@ source "$ZSH/oh-my-zsh.sh"
 # Custom aliases and functions {{{
 # Load Yubikey into ssh-agent
 function yk4() {
+	# check if yubico-piv-tool is installed
+	if [ ! -f /usr/lib/libykcs11.so ]; then
+		echo "yubico-piv-tool must be installed to add Yubikey to ssh-agent."
+		return 1
+	fi
+
 	# remove existing Yubikey from ssh-agent if loaded
 	[ $(ssh-add -L | grep libykcs11 | wc -l) -ne 0 ] && ssh-add -e /usr/lib/libykcs11.so
+
 	# load Yubikey
-	ssh-add -s /usr/lib/libykcs11.so
+	if [ -f "$HOME/.ssh-pass" ]; then
+		local pass=$(cat "$HOME/.ssh-pass")
+		expect << EOF
+			spawn ssh-add -s /usr/lib/libykcs11.so
+			expect "Enter passphrase for PKCS#11"
+			send "${pass}\r"
+			expect eof
+EOF
+	else;
+		ssh-add -s /usr/lib/libykcs11.so
+	fi
 }
 
 # Print duoconnect relay hosts and corresponding relay storage file
