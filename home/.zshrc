@@ -68,6 +68,9 @@ if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
 	. "$HOME/.local/bin/virtualenvwrapper.sh"
 fi
 
+# PHP (composer)
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+
 # ag (tag) -- Generate shell aliases for matches
 if (( $+commands[tag] )); then
 	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
