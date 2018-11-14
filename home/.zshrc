@@ -17,7 +17,7 @@ if [[ -n $SSH_CONNECTION ]]; then
 	export EDITOR='vim'
 # Local editor
 else
-	export EDITOR='nvim'
+	export EDITOR='vim'
 fi
 # }}}
 
