@@ -166,5 +166,8 @@ function gohere () {
 	export PATH="$(pwd)/bin:$PATH"
 	export GOPATH="$(pwd)"
 }
+
+# Send xterm-256color as TERM with SSH
+alias ssh='TERM=xterm-256color ssh'
 # }}}
 # vim: foldmethod=marker:foldlevel=0
