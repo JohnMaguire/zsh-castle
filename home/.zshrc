@@ -117,6 +117,8 @@ source "$ZSH/oh-my-zsh.sh"
 # }}}
 
 # Custom aliases and functions {{{
+alias maim="maim -s ~/screenshots/maim-$(date +%s).png"
+
 # Load Yubikey into ssh-agent
 function yk4() {
 	# check if yubico-piv-tool is installed
