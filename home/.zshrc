@@ -60,7 +60,7 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 # Python (pip)
 if [ $(uname -s) = "Darwin" ]; then
-	export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+	export PATH="$PATH:$HOME/Library/Python/3.8/bin"
 fi
 
 # Python (virtualenvwrapper)
