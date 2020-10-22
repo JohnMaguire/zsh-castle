@@ -161,6 +161,11 @@ function map_relaystorage() {
 	done | column -t
 }
 
+# Fetch the weather for a location
+function weather() {
+	curl "https://wttr.in/$(echo "$argv[@]" | sed 's/ /+/g')"
+}
+
 # Use current path as new GOPATH, and include the bin in PATH
 function gohere () {
 	export PATH="$(pwd)/bin:$PATH"
