@@ -163,7 +163,8 @@ function map_relaystorage() {
 
 # Fetch the weather for a location
 function weather() {
-	curl "https://wttr.in/$(echo "$argv[@]" | sed 's/ /+/g')"
+	local default_location="Columbus, OH"
+	curl "https://wttr.in/$(echo "${argv[@]:-${default_location}}" | sed 's/ /+/g')"
 }
 
 # Use current path as new GOPATH, and include the bin in PATH
