@@ -79,12 +79,15 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 # Python (pip)
 if [ $(uname -s) = "Darwin" ]; then
-	export PATH="$PATH:$HOME/Library/Python/3.8/bin"
+	export PATH="$PATH:$HOME/Library/Python/3.9/bin"
 fi
 
 # Python (virtualenvwrapper)
-if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
-	. "$HOME/.local/bin/virtualenvwrapper.sh"
+if [ "$(which virtualenvwrapper.sh)" ]; then
+	# Default to Python 3
+	VIRTUALENVWRAPPER_PYTHON="$(which python3)"
+
+	. "$(which virtualenvwrapper.sh)"
 fi
 
 # PHP (composer)
@@ -130,12 +133,12 @@ ZSH_CUSTOM="$HOME/.zsh-custom"
 plugins=(git golang composer pip virtualenvwrapper tpm)
 
 source "$ZSH/oh-my-zsh.sh"
-
-# System-specific private config
-[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
 # }}}
 
 # Custom aliases and functions {{{
+# System-specific private config
+[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
+
 alias maim="maim -s ~/screenshots/maim-$(date +%s).png"
 
 # Load Yubikey into ssh-agent
