@@ -68,9 +68,6 @@ function gohere () {
 	export GOPATH="$(pwd)"
 }
 
-# Ruby (RubyGems)
-export PATH="$PATH:$HOME/.gem/ruby/2.2.0/bin"
-
 # Javascript (node / npm)
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
@@ -98,6 +95,12 @@ if (( $+commands[tag] )); then
 	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
 	alias ag=tag
 fi
+
+# Ruby
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+source "$HOME/.rvm/scripts/rvm"
+
 
 # Rust
 if [ -f "$HOME/.cargo/env" ]; then
