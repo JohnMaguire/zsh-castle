@@ -31,6 +31,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
 	export EDITOR='vim'
 fi
+
+# Send xterm-256color as TERM with SSH
+alias ssh='TERM=xterm-256color ssh'
 # }}}
 
 # System Theming {{{
@@ -51,15 +54,19 @@ man() {
 }
 # }}}
 
-# Applications {{{
+# Programming {{{
 # Android platform-tools (adb/fastboot/etc.)
 export PATH="$PATH:/opt/android-sdk/platform-tools"
-# }}}
 
-# Programming {{{
 # Golang
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+
+# Use current path as new GOPATH, and include the bin in PATH
+function gohere () {
+	export PATH="$(pwd)/bin:$PATH"
+	export GOPATH="$(pwd)"
+}
 
 # Ruby (RubyGems)
 export PATH="$PATH:$HOME/.gem/ruby/2.2.0/bin"
@@ -178,14 +185,5 @@ function weather() {
 	local default_location="Columbus, OH"
 	curl "https://wttr.in/$(echo "${argv[@]:-${default_location}}" | sed 's/ /+/g')"
 }
-
-# Use current path as new GOPATH, and include the bin in PATH
-function gohere () {
-	export PATH="$(pwd)/bin:$PATH"
-	export GOPATH="$(pwd)"
-}
-
-# Send xterm-256color as TERM with SSH
-alias ssh='TERM=xterm-256color ssh'
 # }}}
 # vim: foldmethod=marker:foldlevel=0
