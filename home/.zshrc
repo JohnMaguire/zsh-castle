@@ -3,6 +3,18 @@ if [ -f "$HOME/.homesick/repos/homeshick/homeshick.sh" ]; then
 	source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 	fpath=("$HOME/.homesick/repos/homeshick/completions" $fpath)
 fi
+
+# alias ls to list because I can never remember this one
+eval "$(echo "orig_homeshick() {"; declare -f homeshick | tail -n +2)"
+function homeshick () {
+	if [ "$1" = "ls" ]; then
+		shift 1
+		orig_homeshick list "$@"
+	else
+		orig_homeshick "$@"
+	fi
+}
+
 # }}}
 #
 # Shell Environment Variables (EDITOR, LANG, etc.) {{{
