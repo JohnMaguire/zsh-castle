@@ -55,8 +55,16 @@ man() {
 # }}}
 
 # Programming {{{
+# ag (tag) -- Generate shell aliases for matches
+if (( $+commands[tag] )); then
+	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+	alias ag=tag
+fi
+
 # Android platform-tools (adb/fastboot/etc.)
-export PATH="$PATH:/opt/android-sdk/platform-tools"
+if [ -d "/opt/android-sdk/platform-tools" ]; then
+	export PATH="$PATH:/opt/android-sdk/platform-tools"
+fi
 
 # Golang
 export GOPATH="$HOME/go"
@@ -70,9 +78,16 @@ function gohere () {
 
 # Javascript (node / npm)
 export NPM_PACKAGES="$HOME/.npm-packages"
-export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-export PATH="$PATH:$NPM_PACKAGES/bin"
-export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+if [ -d "$NPM_PACKAGES" ]; then
+	export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+	export PATH="$PATH:$NPM_PACKAGES/bin"
+	export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
+fi
+
+# PHP (composer)
+if [ -d "$HOME/.config/composer" ]; then
+	export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+fi
 
 # Python (pip)
 if [ $(uname -s) = "Darwin" ]; then
@@ -87,19 +102,12 @@ if [ "$(which virtualenvwrapper.sh)" ]; then
 	. "$(which virtualenvwrapper.sh)"
 fi
 
-# PHP (composer)
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-# ag (tag) -- Generate shell aliases for matches
-if (( $+commands[tag] )); then
-	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
-	alias ag=tag
-fi
-
 # Ruby
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-source "$HOME/.rvm/scripts/rvm"
+# Add RVM to PATH for scripting
+if [ -d "$HOME/.rvm" ]; then
+	export PATH="$PATH:$HOME/.rvm/bin"
+	source "$HOME/.rvm/scripts/rvm"
+fi
 
 
 # Rust
