@@ -134,14 +134,15 @@ if [ ! -d "$ZSH" ]; then
 	}
 fi
 
-# Update without asking
-DISABLE_UPDATE_PROMPT=true
+# Enabled Plugins
+plugins=(composer fzf git golang pip tpm virtualenvwrapper)
 
+# oh-my-zsh settings
 ZSH_THEME="candy"
 ZSH_CUSTOM="$HOME/.zsh-custom"
 
-# Enabled Plugins
-plugins=(git golang composer pip virtualenvwrapper tpm)
+# Update without asking
+DISABLE_UPDATE_PROMPT=true
 
 source "$ZSH/oh-my-zsh.sh"
 # }}}
