@@ -52,6 +52,9 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[04;38;5;146m") \
 			man "$@"
 }
+
+# bat syntax highlighter
+export BAT_THEME="Solarized (dark)"
 # }}}
 
 # Programming {{{
