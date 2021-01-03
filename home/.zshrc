@@ -61,8 +61,8 @@ export BAT_THEME="Solarized (dark)"
 # ag (tag) -- Generate shell aliases for matches
 if (( $+commands[tag] )); then
 	tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
-	alias ag=tag
-	alias rg=tag
+	alias ag="TAG_SEARCH_PROG=ag tag"
+	alias rg="TAG_SEARCH_PROG=rg tag"
 fi
 
 # Android platform-tools (adb/fastboot/etc.)
