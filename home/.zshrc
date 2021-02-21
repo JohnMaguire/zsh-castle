@@ -74,6 +74,11 @@ fi
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
+# Flutter
+if [ -d "/opt/flutter" ]; then
+	export PATH="$PATH:/opt/flutter/bin"
+fi
+
 # Use current path as new GOPATH, and include the bin in PATH
 function gohere () {
 	export PATH="$(pwd)/bin:$PATH"
