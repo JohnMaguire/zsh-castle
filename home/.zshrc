@@ -57,7 +57,7 @@ man() {
 export BAT_THEME="Nord"
 
 # Nord theme for fzf
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+export FZF_DEFAULT_OPTS='--height=40% --reverse --info=inline
     --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
     --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
     --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
@@ -151,7 +151,7 @@ if [ ! -d "$ZSH" ]; then
 fi
 
 # Enabled Plugins
-plugins=(composer fzf git golang pip tpm virtualenvwrapper)
+plugins=(fzf golang pip tpm virtualenvwrapper)
 
 # oh-my-zsh settings
 ZSH_THEME="candy"
@@ -167,7 +167,35 @@ source "$ZSH/oh-my-zsh.sh"
 # System-specific private config
 [[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
 
-alias maim="maim -s ~/screenshots/maim-$(date +%s).png"
+alias shot="maim -s ~/screenshots/maim-$(date +%s).png"
+
+# Git aliases {{{
+function _gbd() {
+    if [ $# -eq 0 ]; then
+        git branch -D $(git branch | fzf --multi --header "git branch -D")
+    else
+        git branch -D $@
+    fi
+}
+
+function _gco() {
+    if [ $# -eq 0 ]; then
+        git checkout $(git branch | fzf --header "git checkout")
+    else
+        git checkout $@
+    fi
+}
+
+alias ga="git add"
+alias gb="git branch"
+alias gbd=_gbd  # git branch -D (fzf)
+alias gc="git commit"
+alias gco=_gco  # git checkout (fzf)
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias glg="git log"
+alias gst="git status"
+# }}}
 
 # Load Yubikey into ssh-agent
 function yk4() {
