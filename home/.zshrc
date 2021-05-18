@@ -170,27 +170,28 @@ source "$ZSH/oh-my-zsh.sh"
 alias shot="maim -s ~/screenshots/maim-$(date +%s).png"
 
 # Git aliases {{{
-function _gbd() {
-    if [ $# -eq 0 ]; then
-        git branch -D $(git branch | fzf --multi --header "git branch -D")
-    else
-        git branch -D $@
-    fi
-}
-
-function _gco() {
+function gco() {
     if [ $# -eq 0 ]; then
         git checkout $(git branch | fzf --header "git checkout")
     else
         git checkout $@
     fi
 }
+compdef _git gco=git-checkout
+
+function gbd() {
+    if [ $# -eq 0 ]; then
+        git branch -D $(git branch | fzf --multi --header "git branch -D")
+    else
+        git branch -D $@
+    fi
+}
+compdef _git gbd=git-branch
 
 alias ga="git add"
 alias gb="git branch"
-alias gbd=_gbd  # git branch -D (fzf)
 alias gc="git commit"
-alias gco=_gco  # git checkout (fzf)
+alias gcp="git cherry-pick"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias glg="git log"
