@@ -100,6 +100,9 @@ if [ -d "$NPM_PACKAGES" ]; then
 	export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 fi
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "/usr/share/nvm/nvm.sh" ] && \. "/usr/share/nvm/nvm.sh" # This loads nvm
+
 # PHP (composer)
 if [ -d "$HOME/.config/composer" ]; then
 	export PATH="$PATH:$HOME/.config/composer/vendor/bin"
