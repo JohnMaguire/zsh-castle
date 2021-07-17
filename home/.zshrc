@@ -137,6 +137,8 @@ fi
 
 # oh-my-zsh configuration & bootstrapping {{{
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.zsh-custom"
+
 
 # Install oh-my-zsh if it is not already installed
 if [ ! -d "$ZSH" ]; then
@@ -153,15 +155,30 @@ if [ ! -d "$ZSH" ]; then
 	}
 fi
 
+# Install powerlevel10k theme
+export PL10K="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+if [ ! -d "$PL10K" ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Enabled Plugins
 plugins=(fzf golang pip tpm virtualenvwrapper)
 
-# oh-my-zsh settings
-ZSH_THEME="candy"
-ZSH_CUSTOM="$HOME/.zsh-custom"
-
 # Update without asking
 DISABLE_UPDATE_PROMPT=true
+
+# oh-my-zsh theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source "$ZSH/oh-my-zsh.sh"
 # }}}
